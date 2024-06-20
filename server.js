@@ -8,6 +8,9 @@ const path = require('path');  // Import path module for handling file paths
 
 dotenv.config();  // Load environment variables from .env file
 
+const cors = require('cors');
+app.use(cors());
+
 const app = express();  // Create an instance of an Express application
 const port = process.env.PORT || 3000;  // Define the port on which the server will listen
 
