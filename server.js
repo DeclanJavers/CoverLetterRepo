@@ -9,7 +9,7 @@ const path = require('path');  // Import path module for handling file paths
 dotenv.config();  // Load environment variables from .env file
 
 const app = express();  // Create an instance of an Express application
-const port = 3000;  // Define the port on which the server will listen
+const port = process.env.PORT || 3000;  // Define the port on which the server will listen
 
 // Middleware
 app.use(bodyParser.json());  // Middleware to parse JSON bodies
