@@ -1,0 +1,169 @@
+Please write me a cover letter. I will give you my resume, my cover letter template and the job description.
+
+Please only use technical skills that are on my resume, but feel free to change the soft skills to match those in the job description. 
+
+It is important that you fill in today's data and ensure that the cover letter is ready to send, meaning there shouldn't be any inputs that the user has to fill in.
+
+Please address the letter as Dear Hiring Manager, and end it with Sincerely, Declan Javers. Please do not include a title, the output should start with the greeting.
+
+Under no circumstances should you leave any fields for me to fill in.
+
+
+
+
+
+Here is my resume:									
+
+Declan Javers					
+301-642-3823 | declanjavers@gmail.com | 814 Parker Street, Boston, MA LinkedIn: linkedin.com/in/declan-javers | Website: declanjavers.com Availability: July – December 2024					
+Education					
+Northeastern University, Boston, Massachusetts Khoury College of Computer Sciences
+ Candidate for Bachelor of Science in Computer Science Honors: GPA 3.23/4.0			
+						
+September 2022 – Present Expected Graduation: May 2026
+					
+				
+				
+					
+						
+Relevant Courses: Object-Oriented Design, Algorithms and Data, Fundamentals of Computer Science 1 & 2, Foundations of
+						
+Cybersecurity, Foundations of Data Science, Discrete Structures
+						
+Walt Whitman High School, Bethesda, Maryland Graduated June 2022
+						
+GPA: 4.44/5.0
+ Activities: Co-Founder of Whitman Cleanup Coalition, Member of Whitman Navigators Club, Varsity Soccer, Baltimore Celtic Club Soccer
+						
+Computer Knowledge
+ Programming Languages: Java, Python, HTML, CSS
+						
+Operating Systems: Windows, MacOS, Linux Projects
+						
+Reversi, Java, Object-Oriented Design
+						
+							 								
+Developed a Java program for the game Reversi, a two-player strategy board game.
+ 							
+							 								
+Leveraged object-oriented programming and modular architecture to allow for both hexagonal and square board options.
+ 							
+							 								
+Designed decorator, controller, and listener patterns as well as mutable interfaces to efficiently run the game.
+ 							
+							 								
+Ensured high quality code development through writing technical documentation and running comprehensive testing.
+ 								
+Soccer Player Valuation Predictive Model, Python October - December 2023
+ 							
+						 						
+							 								
+Configured multiple Python machine learning models to predict the transfer value of European soccer players.
+ 							
+							 								
+Performed data ingestion of player data from Kaggle, performed Exploratory Data Analysis (EDA) to understand statistical data
+ 								
+distributions and identify potential features for model training.
+ 							
+							 								
+Employed Pandas, NumPy, Seaborn, and Scikit-Learn for data analysis, data visualization, and machine learning modeling.
+ 								
+Personal Website, HTML, CSS June - July 2023
+ 							
+						 						
+							 								
+Curated a professional website to showcase my creative projects and personal skills.
+ 							
+							 								
+Implemented features such as responsive design, navigation menu, and pop-out menus.
+ 							
+							 								
+Maintained the website using Git, developing my technical skills in HTML, CSS, and JavaScript.
+ 								
+Experience
+ 								
+Bradley Hills Nursery School Camp Counselor, Bethesda, Maryland May - June 2023, May – June 2024
+ 							
+						 						
+							 								
+Implemented engaging camp activities for nursey school students, fostering creative and problem-solving skills.
+ 							
+							 								
+Maintained an organized learning environment, leading to a positive and productive atmosphere.
+ 								
+Delta Kappa Epsilon Executive Board, Boston, Massachusetts May 2023 – May 2024
+ 							
+						 						
+							 								
+Elected Secretary: Coordinated fraternity events, managed the online schedule, and promoted collaboration and productive
+ 								
+communication among members.
+ 							
+							 								
+Elected VP of Health and Safety: Spearheaded the development of comprehensive risk management protocols, educated
+ 							
+						 					
+				
+				 				 				 				
+					
+						
+members on safety procedures and fostered a culture of awareness and responsibility. Aramark Barista, Bethesda, Maryland
+						
+							 								
+Provided customer service by taking and preparing customer orders.
+ 							
+							 								
+Maintained Aramark café machines, ensuring optimal functionality and cleanliness. Teacher's Assistant, Bethesda, Maryland
+ 							
+						 						
+							 								
+Supported student learning by graded papers and answering student questions.
+ 							
+							 								
+Enhanced classroom curriculum by developing engaging labs. Bethesda Soccer Club Camp Counselor, Bethesda, Maryland
+ 							
+						 					
+				
+				
+					
+						
+							 								
+Directed and supervised a group of campers in activities fostering teamwork and sportsmanship.
+ 							
+							 								
+Ensured a safe and organized camp environment by setting up and taking down camp equipment.
+ 							
+						 					
+				
+				
+					
+						
+October - December 2023
+					
+				
+				
+					
+						
+June 2022 – August 2022
+						
+September 2021 – June 2022
+						
+June - August 2020, June - August 2021 
+					
+				
+			
+		
+
+
+Here is my template:
+						
+I am writing to express my excitement at the opportunity to apply for [position] at [company], which I found on NU Works. I am a computer science student at Northeastern University and I am eager to gain experience in [field].					
+As a second-year computer science student at Northeastern, I have a solid foundation in topics such as algorithms and data structures, object-oriented design, cybersecurity, data science, and discrete structures. Of these, I enjoyed [class relating to position], which introduced me to the world of [field]. In particular, I most benefited from learning about... Following my introduction to the field, I completed a [project], explain the project and skills used...					
+Drawing from my experiences as a barista, camp counselor, and leadership involvement within my fraternity, I have noticed the importance of relationship-building and collaboration. I have learned to love the team-based approach to these positions, and they have greatly strengthened my teamwork skills. I am seeking to further develop my communication, leadership, and collaboration skills by working for a company that prioritizes good working relationships and values contributions from each team member toward achieving common goals.					
+I am greatly excited at the prospect of joining [company name], and am eager to bring my skills to the team. Thank you for your time and consideration of my application, and I look forward to hearing from you soon.				
+Sincerely, Declan Javers 
+					
+				
+			
+		
+

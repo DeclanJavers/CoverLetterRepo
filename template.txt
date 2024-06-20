@@ -1,0 +1,9 @@
+Please write me a cover letter. I will give you my resume, my cover letter template and the job description. If any of these are missing do the best you can without them.
+
+Please only use technical skills that are on my resume, but feel free to change the soft skills to match those in the job description. 
+
+It is important that you ensure that the cover letter is ready to send, meaning there shouldn't be any inputs that the user has to fill in.
+
+Please address the letter as Dear Hiring Manager, and end it with Sincerely,\n[full name]. Please do not include a title, the output should start with the greeting.
+
+Under no circumstances should you leave any fields for me to fill in.

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cover Letter Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Your Cover Letter</h1>
+        <h4>Please enter everything as you want it to appear in the letter</h4>
+        
+        <!-- Two-column layout: Left column for form inputs, Right column for output -->
+        <div class="columns">
+            <form id="jobForm" class="column">
+                <label for="name">Name:</label>
+                <textarea id="name" name="name" rows="1" required></textarea>
+                <label for="phoneNumber">Phone Number:</label>
+                <textarea id="phoneNumber" name="phoneNumber" rows="1" required></textarea>            
+                <label for="email">Email:</label>
+                <textarea id="email" name="email" rows="1" required></textarea>
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" rows="1" required></textarea>
+                <label for="linkedIn">LinkedIn:</label>
+                <textarea id="linkedIn" name="linkedIn" rows="1" required></textarea>
+                <label for="resume">Copy and paste your resume here:</label>
+                <textarea id="resume" name="resume" rows="10" required></textarea>
+                <label for="letterTemplate">(Optional) Enter your cover letter template here:</label>
+                <textarea id="letterTemplate" name="letterTemplate" rows="10"></textarea>
+                <label for="jobDescription">Job description:</label>
+                <textarea id="jobDescription" name="jobDescription" rows="10" required></textarea>
+                <button type="submit">Generate Cover Letter</button>
+            </form>
+            
+            <div id="output" class="column" style="display: none;">
+                <button id="downloadPdf">Download as PDF</button>
+                <h2>Your Cover Letter</h2>
+                <pre id="coverLetter"></pre>
+            </div>
+        </div>
+        
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
