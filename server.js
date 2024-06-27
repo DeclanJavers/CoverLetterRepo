@@ -1,15 +1,12 @@
 // Import necessary modules
-const express = require('express');  // Express framework for building web applications
-const bodyParser = require('body-parser');  // Middleware to parse incoming request bodies
-const dotenv = require('dotenv');  // Module to load environment variables from a .env file
-const fs = require('fs').promises;  // Promises version of fs for asynchronous file operations
-const { GoogleGenerativeAI } = require('@google/generative-ai');  // Import Google Generative AI client
-const path = require('path');  // Import path module for handling file paths
+const express = require('express');
+const bodyParser = require('body-parser'); 
+const dotenv = require('dotenv'); 
+const fs = require('fs').promises;  // To read the txt files
+const { GoogleGenerativeAI } = require('@google/generative-ai');  // Import Google Generative AI
+const path = require('path');
 
 dotenv.config();  // Load environment variables from .env file
-
-const cors = require('cors');
-app.use(cors());
 
 const app = express();  // Create an instance of an Express application
 const port = process.env.PORT || 3000;  // Define the port on which the server will listen
@@ -53,7 +50,9 @@ loadTemplate();
 // Endpoint to generate a cover letter
 app.post('/generate-cover-letter', async (req, res) => {
     const { jobDescription } = req.body;  // Extract job description from the request body
-
+    console.log(jobDescription);
+    loadTemplate();
+    console.log('this is the template text ' + templateText);
     try {
         // Prepare the parts for the model input
         const parts = [
@@ -104,14 +103,27 @@ app.post('/get-company-name', async (req, res) => {
         // Extract the generated text
         const generatedText = result.response.candidates[0].content.parts[0].text;
 
-        // Send the generated text as a response
-        res.json({ generatedText });
+        // Extract company name and job role from generated text
+        const companyNameAndRole = generatedText.split(' '); // Assuming the generated text is space-separated
+
+        // Ensure we have at least two parts (company name and job role)
+        if (companyNameAndRole.length >= 2) {
+            const companyName = companyNameAndRole[0];
+            const jobRole = companyNameAndRole.slice(1).join(' ');
+
+            // Send the company name and job role as a response
+            res.json({ companyName, jobRole });
+        } else {
+            console.error('Failed to extract company name and job role:', generatedText);
+            res.status(500).json({ error: 'Failed to extract company name and job role' });
+        }
 
     } catch (error) {
         console.error('Error generating company name:', error);
         res.status(500).json({ error: 'Failed to generate company name' });
     }
 });
+
 
 // Serve static files (if needed)
 app.use(express.static('public'));

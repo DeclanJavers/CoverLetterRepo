@@ -1,47 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cover Letter Generator</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <link rel="icon" href="favicon-32x32.png">
 </head>
+
 <body>
     <div class="container">
-        <h1>Generate Your Cover Letter</h1>
-        <h4>Please enter everything as you want it to appear in the letter</h4>
-        
-        <!-- Two-column layout: Left column for form inputs, Right column for output -->
+        <div class="top_div">
+            <h1>Generate Your Cover Letter</h1>
+            <h4>Please enter everything as you want it to appear in the letter</h4>
+        </div>
+
         <div class="columns">
-            <form id="jobForm" class="column">
-                <label for="name">Name:</label>
-                <textarea id="name" name="name" rows="1" required></textarea>
-                <label for="phoneNumber">Phone Number:</label>
-                <textarea id="phoneNumber" name="phoneNumber" rows="1" required></textarea>            
-                <label for="email">Email:</label>
-                <textarea id="email" name="email" rows="1" required></textarea>
-                <label for="address">Address:</label>
-                <textarea id="address" name="address" rows="1" required></textarea>
-                <label for="linkedIn">LinkedIn:</label>
-                <textarea id="linkedIn" name="linkedIn" rows="1" required></textarea>
-                <label for="resume">Copy and paste your resume here:</label>
-                <textarea id="resume" name="resume" rows="10" required></textarea>
-                <label for="letterTemplate">(Optional) Enter your cover letter template here:</label>
-                <textarea id="letterTemplate" name="letterTemplate" rows="10"></textarea>
-                <label for="jobDescription">Job description:</label>
-                <textarea id="jobDescription" name="jobDescription" rows="10" required></textarea>
+            <form id="jobForm" class="column" style="background-color: #f1f1f1;">
+                <div class="header_div">
+                    <label for="name">Name:</label>
+                    <textarea id="name" name="name" rows="1" required></textarea>
+                </div>
+                <div class="header_div">
+                    <button type="button" class="collapsible" id="personalInformationCollapsable">Personal
+                        Information</button>
+                    <div class="content">
+                        <label for="resume">Copy and paste your resume here:</label>
+                        <textarea id="resume" name="resume" rows="10" required></textarea>
+                        <div class="checkbox_div">
+                            <label for="generateHeaderCheckbox">Generate Header?</label>
+                            <input type="checkbox" id="generateHeaderCheckbox" checked>
+                        </div>
+                        <div class="header_content">
+                            <div class="two-columns" id="two-columns">
+                                <div class="column">
+                                    <label for="phoneNumber">Phone Number:</label>
+                                    <textarea id="phoneNumber" name="phoneNumber" rows="1"></textarea>
+                                    <label for="linkedIn">LinkedIn:</label>
+                                    <textarea id="linkedIn" name="linkedIn" rows="1"></textarea>
+                                </div>
+                                <div class="column">
+                                    <label for="email">Email:</label>
+                                    <textarea id="email" name="email" rows="1"></textarea>
+                                    <label for="address">Address:</label>
+                                    <textarea id="address" name="address" rows="1"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="header_div">
+                    <button type="button" class="collapsible" id="customizationOptions">Customization Options</button>
+                    <div class="content">
+                        <label for="additionalInstructions">(Optional) Enter additional instructions here:</label>
+                        <textarea id="additionalInstructions" name="additionalInstructions" rows="10"></textarea>                        
+                        <label for="letterTemplate">(Optional) Enter your cover letter template here:</label>
+                        <textarea id="letterTemplate" name="letterTemplate" rows="10"></textarea>
+                    </div>
+                </div>
+                <div class="header_div">
+                    <label for="jobDescription">Job description:</label>
+                    <textarea id="jobDescription" name="jobDescription" rows="10" required></textarea>
+                </div>
                 <button type="submit">Generate Cover Letter</button>
             </form>
-            
+
             <div id="output" class="column" style="display: none;">
-                <button id="downloadPdf">Download as PDF</button>
-                <h2>Your Cover Letter</h2>
+                <div class="row">
+                    <h2>Your Cover Letter</h2>
+                    <button id="downloadPdf">Download as PDF</button>
+                </div>
                 <pre id="coverLetter"></pre>
             </div>
         </div>
-        
+
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

@@ -1,148 +1,207 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Handle form submission
-    document.getElementById('jobForm').addEventListener('submit', handleFormSubmit);
+    // Initialize variables for user inputs for the header
+    let name1 = '';
+    let phoneNumber = '';
+    let address = '';
+    let linkedIn = '';
+    let email = '';
+    let resume = '';
+    let template = '';
+    let instructions = '';
 
-    // Handle PDF download
-    document.getElementById('downloadPdf').addEventListener('click', generatePDF);
-});
+    // Function to handle form submission
+    async function handleFormSubmit(e) {
+        e.preventDefault();  // Prevent default form submission
+        
+        // Get the user inputs for the header
+        name1 = document.getElementById('name').value;
+        phoneNumber = document.getElementById('phoneNumber').value;
+        address = document.getElementById('address').value;
+        linkedIn = document.getElementById('linkedIn').value;
+        email = document.getElementById('email').value;
+        resume = document.getElementById('resume').value;
+        template = document.getElementById('letterTemplate').value;
+        instructions = document.getElementById('additionalInstructions').value;
 
-// Initialize variables for user inputs for the header
-let name1 = '';
-let phoneNumber = '';
-let address = '';
-let linkedIn = '';
-let email = '';
-let resume = '';
-let template = '';
+        const jobDescription = document.getElementById('jobDescription').value;
+        console.log(instructions);
 
-// Function to handle form submission
-async function handleFormSubmit(e) {
-    e.preventDefault();  // Prevent default form submission
+        const input = ('\nThese are the specific instructions for the cover letter from the user \n\n' + instructions + 'The name of the user that you are generating a cover letter for is ' + name1 + '\n\nJob description \n\n' + jobDescription + '\n\nresume \n\n' + resume + '\n\n cover letter template\n\n' + template);
+
+        try {
+            const coverLetter = await fetchCoverLetter(input);  // Fetch cover letter
+            displayCoverLetter(coverLetter);  // Display cover letter
+
+            const { companyName, jobRole } = await fetchCompanyNameAndRole(jobDescription);  // Fetch company name and job role
+            const filename = `${companyName} ${jobRole} Cover Letter.pdf`;  // Create filename
+            setDownloadFilename(filename);  // Set filename for download
+        } catch (error) {
+            console.error('Error:', error);  // Log any errors
+        }
+    }
+
+    // Function to fetch cover letter
+    async function fetchCoverLetter(input) {
+        const response = await fetch('/generate-cover-letter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ jobDescription: input }) // Ensure correct field name
+        });
+
+        if (!response.ok) {  // Handle non-OK response
+            throw new Error('Failed to fetch cover letter');
+        }
+
+        const data = await response.json();  // Parse response JSON
+        return data.coverLetter;  // Return cover letter
+    }
+
+    // Function to display cover letter
+    function displayCoverLetter(coverLetter) {
+        const outputDiv = document.getElementById('output');  // Get output div
+        outputDiv.style.display = 'block';  // Show output div
+
+        const coverLetterPre = document.getElementById('coverLetter');  // Get cover letter element
+        coverLetterPre.textContent = coverLetter;  // Set cover letter text
+    }
+
+    // Function to fetch company name and role
+    async function fetchCompanyNameAndRole(jobDescription) {
+        console.log('Fetching company name and role for:', jobDescription); // Debug log
+        const response = await fetch('/get-company-name', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ jobDescription: jobDescription })
+        });
+
+        if (!response.ok) {
+            console.error('Failed to fetch company name and role:', response.status, response.statusText); // Debug log
+            throw new Error('Failed to fetch company name and role');
+        }
+
+        const data = await response.json();
+
+        const companyName = data.companyName;
+        const jobRole = data.jobRole.substring(data.jobRole.length - 2);
+
+        console.log('Fetched data:', data); // Debug log
+        console.log('more data ' + data.companyName + " " + data.jobRole);
+
+        return { companyName, jobRole };
+    }
+
+    // Function to set download filename
+    function setDownloadFilename(filename) {
+        const downloadButton = document.getElementById('downloadPdf');  // Get download button
+        downloadButton.setAttribute('data-filename', filename);  // Set data-filename attribute
+    }
+
+    document.getElementById('downloadPdf').addEventListener('click', async () => {
+        try {
+            const { jsPDF } = window.jspdf;
+            const coverLetter = document.getElementById('coverLetter').textContent;
+
+            const doc = new jsPDF();
+            const maxWidth = 165; // Adjust as needed for your layout
+            const textLines = doc.splitTextToSize("\n\n\n\n\n" + coverLetter, maxWidth);
+            const marginLeft = 20;
+            const marginTop = 20;
+            
+            const nameLine = name1 + '\n';
+            const lineTwo = phoneNumber + ' | ' + email + ' | ' + address + '\n' + linkedIn;
+
+            // Create a new Date object (automatically initialized with current date and time)
+            const today = new Date();
+
+            // Extract individual components of the date
+            const year = today.getFullYear(); // Full year (e.g., 2024)
+            const month = today.getMonth() + 1; // Month (0-11, so we add 1)
+            const day = today.getDate(); // Day of the month (1-31)
+
+            if (document.getElementById('generateHeaderCheckbox').checked) {
+                doc.setFont('Courier', 'Bold');
+                doc.setFontSize(22);
+                doc.text(nameLine, doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
+                doc.setFontSize(12);
+                doc.setFont('Courier', '');
+                doc.text(lineTwo, doc.internal.pageSize.getWidth() / 2, 26, { align: 'center' });
+            }
+
+            doc.setFontSize(12);
+            doc.setFont('Courier', '');
+
+            doc.text("\n" + month + "/" + day + "/" + year + "\n\n" + "Dear Hiring Manager,\n\n", marginLeft, 40);
+            doc.text(textLines, marginLeft, 40);
+
     
-    // Get the user inputs for the header
-    name1 = document.getElementById('name').value;
-    phoneNumber = document.getElementById('phoneNumber').value;
-    address = document.getElementById('address').value;
-    linkedIn = document.getElementById('linkedIn').value;
-    email = document.getElementById('email').value;
-    resume = document.getElementById('resume').value;
-    template = document.getElementById('letterTemplate').value;
-
-    const jobDescription = document.getElementById('jobDescription').value;  // Get job description
-
-    const input = ('Job description \n\n' + jobDescription + '\n\nresume \n\n' + resume + '\n\n cover letter template\n\n' + template);
-
-    try {
-        const coverLetter = await fetchCoverLetter(input);  // Fetch cover letter
-        displayCoverLetter(coverLetter);  // Display cover letter
-
-        const { companyName, jobRole } = await fetchCompanyNameAndRole(jobDescription);  // Fetch company name and job role
-        const filename = `${companyName} ${jobRole} Cover Letter.pdf`;  // Construct filename
-        setDownloadFilename(filename);  // Set filename for download
-
-    } catch (error) {
-        console.error('Error fetching or processing data:', error);  // Log errors
-        document.getElementById('coverLetter').textContent = "Error generating";  // Display error message
-    }
-}
-
-// Function to fetch cover letter from the server
-async function fetchCoverLetter(jobDescription) {
-    const response = await fetch('/generate-cover-letter', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ jobDescription })  // Send job description
+            const jobDescription = document.getElementById('jobDescription').value;
+    
+            // Fetch company name and job role
+            const response = await fetch('/get-company-name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ jobDescription })
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to fetch company name and role');
+            }
+    
+            const { companyName, jobRole } = await response.json();
+    
+            if (companyName && jobRole) {
+                console.log('Company name and job role:', companyName, jobRole); // Debug log
+                const filename = `${companyName} ${jobRole.slice(0, -2)} Cover Letter.pdf`;
+                doc.save(filename);
+            } else {
+                console.error('Company name or job role is undefined');
+            }
+    
+        } catch (error) {
+            console.error('Error:', error);
+        }
     });
 
-    if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
-
-    const data = await response.json();  // Parse JSON response
-    return data.coverLetter;  // Return cover letter
-}
-
-// Function to display cover letter
-function displayCoverLetter(coverLetter) {
-    document.getElementById('coverLetter').textContent = "Dear Hiring Manager, \n\n" + coverLetter;  // Display cover letter
-    document.getElementById('output').style.display = 'block';  // Show output section
-}
-
-// Function to fetch company name and job role from the server
-async function fetchCompanyNameAndRole(jobDescription) {
-    const response = await fetch('/get-company-name', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ jobDescription })  // Send job description
+    // Collapsible menu for personal information
+    var coll = document.getElementById("personalInformationCollapsable");
+    coll.addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
     });
 
-    if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
+    // Handle the extra information after the generate header checkbox
+    var extraInformation = document.getElementById("two-columns");
+    var checkbox = document.getElementById('generateHeaderCheckbox');
 
-    const data = await response.json();  // Parse JSON response
-    const generatedText = data.generatedText.replace(/\n/g, "");  // Remove newlines
-    const [companyName, jobRole] = generatedText.split(' ');  // Split text to get company name and job role
+    checkbox.addEventListener("click", function () {
+        if (checkbox.checked) {
+            extraInformation.style.maxHeight = 'none';
+        } else {
+            extraInformation.style.maxHeight = '0';
+        }
+    });
 
-    return { companyName, jobRole };  // Return company name and job role
-}
+    var coll = document.getElementById("customizationOptions");
+    coll.addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight) {
+            content.style.maxHeight = null;
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+        }
+    });
 
-// Function to set the filename for the PDF download
-function setDownloadFilename(filename) {
-    document.getElementById('downloadPdf').setAttribute('download', filename);  // Set download attribute
-}
-
-// Function to generate and download the PDF
-async function generatePDF() {
-    try {
-        const { jsPDF } = window.jspdf;  // Get jsPDF library
-        const coverLetter = document.getElementById('coverLetter').textContent;  // Get cover letter content
-
-        const doc = new jsPDF();
-        const maxWidth = 220;  // Maximum width for text
-        const textLines = doc.splitTextToSize("\n" + coverLetter, maxWidth);  // Split text into lines
-        const marginLeft = 20;
-        const marginTop = 20;
-
-        // Read the text file (Note: Ensure this part is correct based on your setup)
-        const text = '/fontText.txt'; // This should be a valid path to your font file
-        // Base64 encoded font data (this part seems unrelated to the issue)
-        var font = text;
-        // Function to add font to jsPDF (this part seems unrelated to the issue)
-        var callAddFont = function () {
-            this.addFileToVFS('EBGaramond-Regular-normal.ttf', font);
-            this.addFont('EBGaramond-Regular-normal.ttf', 'EBGaramond-Regular', 'normal');
-        };
-        // Push font adding function to jsPDF events (this part seems unrelated to the issue)
-        jsPDF.API.events.push(['addFonts', callAddFont]);
-        doc.setFont('EBGaramond-Regular', 'normal');
-        doc.setFontSize(20);
-
-        // Add content to PDF
-        doc.text(name1, doc.internal.pageSize.getWidth() / 2, 20, { align: 'center' });
-        doc.setFontSize(12);
-        const secondHeaderLine = `${phoneNumber} | ${email} | ${address}`;
-        doc.text(secondHeaderLine, doc.internal.pageSize.getWidth() / 2, 26, { align: 'center' });
-        doc.text(`Linkedin: ${linkedIn}`, doc.internal.pageSize.getWidth() / 2, 32, { align: 'center' });
-
-        // Add current date
-        const today = new Date();
-        const formattedDate = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
-        doc.text(formattedDate, marginLeft, 42);
-
-        // Add cover letter text
-        doc.text(textLines, marginLeft, 50);
-
-        // Save the PDF with the specified filename
-        const filename = document.getElementById('downloadPdf').getAttribute('download');
-        doc.save(filename);
-    } catch (error) {
-        console.error('Error generating PDF:', error);
-        // Handle error appropriately, such as displaying an error message to the user
-    }
-}
-
+    document.getElementById('jobForm').addEventListener('submit', handleFormSubmit);  // Add event listener for form submission
+});

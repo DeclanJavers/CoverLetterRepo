@@ -1,6 +1,3 @@
-/* style.css */
-
-/* Basic reset */
 * {
   margin: 0;
   padding: 0;
@@ -15,21 +12,19 @@ body {
   line-height: 1.6;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* Changed to flex-start */
+  align-items: flex-start;
   height: 100vh;
-  padding-top: 50px; /* Added padding at the top */
 }
 
 /* Container styling */
 .container {
-  background-color: #fff;
+  background-color: lightgrey;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 1400px; /* Increased max-width for better spacing */
-  text-align: center;
-  margin-top: 20px; /* Added margin at the top */
+  max-width: 1400px;
+  margin-top: 20px;
 }
 
 /* Heading styling */
@@ -47,13 +42,15 @@ body {
 /* Columns layout */
 .columns {
   display: flex;
-  justify-content: space-between; /* Arrange columns with space between */
-  flex-wrap: wrap; /* Ensure columns wrap on smaller screens */
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .column {
-  width: calc(50% - 10px); /* Adjust width of columns */
-  margin-bottom: 20px; /* Space between columns */
+  width: calc(50% - 10px);
+  margin-bottom: 20px;
+  padding: 2%;
+  border-radius: 10px;
 }
 
 /* Form styling */
@@ -71,7 +68,6 @@ label {
 }
 
 textarea, input {
-  margin-bottom: 15px;
   padding: 10px;
   font-size: 1em;
   border: 1px solid #ddd;
@@ -89,6 +85,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -97,6 +94,10 @@ button:hover {
 
 /* Output section styling */
 #output {
+  display: flex;
+  flex-direction: column; /* Updated for stacking */
+  justify-content: center; /* Updated for centering */
+  align-items: center; /* Updated for centering */
   margin-top: 20px;
 }
 
@@ -107,6 +108,7 @@ button:hover {
 }
 
 pre {
+  flex: 1; /* Take remaining space */
   text-align: left;
   background: #f5f5f5;
   padding: 10px;
@@ -114,10 +116,131 @@ pre {
   border-radius: 4px;
   white-space: pre-wrap;
   word-wrap: break-word;
+  margin-top: 10px; /* Added margin top */
 }
 
 #downloadPdf {
-  margin-bottom: 15px; /* Added margin at the bottom of the button */
+  padding: 10px 15px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px; /* Added margin top */
+}
+
+#downloadPdf:hover {
+  background-color: #218838;
+}
+
+.two-columns {
+  max-height: none; /* This ensures it starts visible */
+  display: flex;
+  justify-content: space-between;
+}
+
+.two-columns .column {
+  width: 48%;
+}
+
+/* Collapsible menu styling */
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+
+.name_div {
+  background-color: #f1f1f1;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  text-align: left;
+}
+
+.checkbox_div {
+  display: flex;
+  align-items: center; /* Align items vertically */
+}
+
+.checkbox_div label {
+  margin-right: 10px; /* Add spacing between label and checkbox */
+}
+
+.checkbox_div input[type="checkbox"] {
+  transform: scale(1.5); /* Adjust the scale factor as needed */
+  margin-right: 5px; /* Optional: Add some space between the checkbox and label */
+}
+
+.header_div {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 0px;
+}
+
+.top_div {
+  text-align: center;
+}
+
+.collapsible.disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.header_content.disabled {
+  cursor: not-allowed;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  width: 90%;
+}
+
+.row h2 {
+  font-size: 1.5em;
+  color: #007BFF;
+  margin-bottom: 10px;
+}
+
+#downloadPdf {
   padding: 10px 15px;
   font-size: 1em;
   color: #fff;
