@@ -50,8 +50,7 @@ loadTemplate();
 // Endpoint to generate a cover letter
 app.post('/generate-cover-letter', async (req, res) => {
     const { jobDescription } = req.body;  // Extract job description from the request body
-    console.log(jobDescription);
-    loadTemplate();
+
     console.log('this is the template text ' + templateText);
     try {
         // Prepare the parts for the model input
